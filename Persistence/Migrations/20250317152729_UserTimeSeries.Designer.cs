@@ -10,7 +10,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250316194840_UserTimeSeries")]
+    [Migration("20250317152729_UserTimeSeries")]
     partial class UserTimeSeries
     {
         /// <inheritdoc />
@@ -38,7 +38,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TimeSeries");
+                    b.ToTable("UserTimeSeries");
                 });
 #pragma warning restore 612, 618
         }

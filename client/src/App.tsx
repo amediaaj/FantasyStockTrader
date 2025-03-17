@@ -16,7 +16,7 @@ function App() {
     (async function fetchData(){
       try {
         const userTimeSeriesResponse = 
-        await axios.get<UserTimeSeries[]>('https://localhost:5001/api/timeseries');
+        await axios.get<UserTimeSeries[]>('https://localhost:5001/api/usertimeseries');
         
         const timeSeriesResponse = await Promise.all(
           userTimeSeriesResponse.data.map((timeSeriesDetail: UserTimeSeries) =>

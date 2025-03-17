@@ -5,5 +5,5 @@ namespace Persistence;
 
 public class AppDbContext(DbContextOptions options) : DbContext(options)
 {
-    public required DbSet<UserTimeSeries> TimeSeries { get; set; }
+    public required DbSet<UserTimeSeries> UserTimeSeries { get; set; }
 }
