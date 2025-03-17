@@ -11,13 +11,13 @@ namespace API.Controllers
     public class TimeSeriesController(AppDbContext context) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<List<TimeSeries>>> GetTimeSeries()
+        public async Task<ActionResult<List<UserTimeSeries>>> GetTimeSeries()
         {
             return await context.TimeSeries.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TimeSeries>> GetTimeSeriesDetail(string id)
+        public async Task<ActionResult<UserTimeSeries>> GetTimeSeriesDetail(string id)
         {
             var timeSeries = await context.TimeSeries.FindAsync(id);
 
