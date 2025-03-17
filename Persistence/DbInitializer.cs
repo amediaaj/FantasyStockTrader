@@ -9,24 +9,29 @@ public class DbInitializer
     {
         if (context.TimeSeries.Any()) return;
 
-        var timeSeries = new List<TimeSeries> {
+        var timeSeries = new List<UserTimeSeries> {
             new() {
+                UserId = Guid.NewGuid().ToString(),
                 TickerSymbol="MCD",
-                Function="TIME_SERIES_INTRADAY"
+                Function="TIME_SERIES_DAILY"
             },
             new() {
+                UserId = Guid.NewGuid().ToString(),
                 TickerSymbol="MSFT",
                 Function="TIME_SERIES_DAILY"
             },
             new() {
+                UserId = Guid.NewGuid().ToString(),
                 TickerSymbol="NKE",
-                Function="TIME_SERIES_INTRADAY"
+                Function="TIME_SERIES_DAILY"
             },
             new() {
+                UserId = Guid.NewGuid().ToString(),
                 TickerSymbol="PFE",
                 Function="TIME_SERIES_DAILY"
             },
             new() {
+                UserId = Guid.NewGuid().ToString(),
                 TickerSymbol="VZ",
                 Function="TIME_SERIES_DAILY"
             },

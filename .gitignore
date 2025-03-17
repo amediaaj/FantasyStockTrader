@@ -484,3 +484,6 @@ $RECYCLE.BIN/
 *.swp
 API/appsettings.json
 API/stocktracker.db
+API/stocktracker.db-shm
+API/stocktracker.db-wal
+client/src/lib/keys/keychain.ts
