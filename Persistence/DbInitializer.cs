@@ -7,7 +7,7 @@ public class DbInitializer
 {
     public static async Task SeedData(AppDbContext context)
     {
-        if (context.TimeSeries.Any()) return;
+        if (context.UserTimeSeries.Any()) return;
 
         var timeSeries = new List<UserTimeSeries> {
             new() {

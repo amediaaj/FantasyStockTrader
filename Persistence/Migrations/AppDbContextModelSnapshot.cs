@@ -35,7 +35,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TimeSeries");
+                    b.ToTable("UserTimeSeries");
                 });
 #pragma warning restore 612, 618
         }
