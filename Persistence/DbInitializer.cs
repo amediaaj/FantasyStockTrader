@@ -27,12 +27,12 @@ public class DbInitializer
             },
             new() {
                 UserId = Guid.NewGuid().ToString(),
-                TickerSymbol="PFE",
+                TickerSymbol="AAPL",
                 Function="TIME_SERIES_DAILY"
             },
             new() {
                 UserId = Guid.NewGuid().ToString(),
-                TickerSymbol="VZ",
+                TickerSymbol="NVDA",
                 Function="TIME_SERIES_DAILY"
             },
             
