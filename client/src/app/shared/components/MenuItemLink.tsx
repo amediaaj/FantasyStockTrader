@@ -1,8 +1,13 @@
-import { MenuItem } from "@mui/material";
+import { MenuItem, useTheme } from "@mui/material";
 import { ReactNode } from "react";
 import { NavLink } from "react-router";
+import { tokens } from "../../../theme";
 
 export default function MenuItemLink({children, to}: {children: ReactNode, to: string}) {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode)
+  
+
   return (
     <MenuItem
         component={NavLink} 
@@ -13,7 +18,7 @@ export default function MenuItemLink({children, to}: {children: ReactNode, to: s
             fontWeight: 'bold',
             color: 'inherit',
             '&.active': {
-                color: 'yellow'
+                color: colors.blueAccent[200]
             }
         }}
     >

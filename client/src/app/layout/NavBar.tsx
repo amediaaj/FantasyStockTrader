@@ -1,18 +1,30 @@
 import { Group } from "@mui/icons-material";
 import { Box, AppBar, Toolbar, Typography, 
-    Container, MenuItem } from "@mui/material";
+    Container, MenuItem, 
+    useTheme,
+    IconButton} from "@mui/material";
 import { NavLink } from "react-router";
 import MenuItemLink from "../shared/components/MenuItemLink";
+import { ColorModeContext, tokens } from "../../theme";
+import { useContext } from "react";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined"
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined"
+import NotificationsOutlinedIcon from "@mui/icons-material/NotificationAddOutlined"
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined"
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined"
 
 const NavBar = () => {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode)
+    const colorMode = useContext(ColorModeContext);
+
     return (
         <Box sx={{ flexGrow: 1 }}>
           <AppBar 
+            sx={{backgroundColor: colors.primary[900]}}
             elevation={11} 
-            position="static" 
-            sx={{
-                backgroundImage: 
-                    'linear-gradient(90deg, rgba(51,50,57,1) 0%, rgba(83,140,71,1) 35%, rgba(125,184,155,1) 100%)'}}>
+            position="static"
+            >
             <Container>
                 <Toolbar sx={{
                     display: 'flex', 
@@ -39,9 +51,28 @@ const NavBar = () => {
                             Trade Stocks
                         </MenuItemLink>
                     </Box>
-                    <MenuItem>
-                        User Menu
-                    </MenuItem>
+                    {/* icons */}
+                    <Box display='flex'>
+                        <IconButton onClick={colorMode.toggleColorMode}>
+                            {theme.palette.mode === 'dark' ? (
+                                    <DarkModeOutlinedIcon></DarkModeOutlinedIcon>
+                                ) : (
+                                    <LightModeOutlinedIcon></LightModeOutlinedIcon>
+                            )}
+                        </IconButton>
+
+                        <IconButton>   
+                            <NotificationsOutlinedIcon></NotificationsOutlinedIcon>
+                        </IconButton>
+
+                        <IconButton>
+                            <SettingsOutlinedIcon></SettingsOutlinedIcon>
+                        </IconButton>
+
+                        <IconButton> 
+                            <PersonOutlinedIcon></PersonOutlinedIcon>    
+                        </IconButton>
+                    </Box>
                 </Toolbar>
             </Container>
           </AppBar>
