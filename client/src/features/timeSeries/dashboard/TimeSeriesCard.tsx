@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { BaseSyntheticEvent } from "react";
 import { AccessTime, Place } from "@mui/icons-material";
 import { tokens } from "../../../theme";
+import TimeSeriesChart from "../chart/TimeSeriesChart";
 
 type Props = {
     timeSeries: TimeSeries
@@ -14,7 +15,6 @@ const TimeSeriesCard = ({ timeSeries }: Props) => {
   const colors = tokens(theme.palette.mode)
 
   const handleImageError = (e: BaseSyntheticEvent) => {
-    console.log(e)
     e.target.onerror = null;
     // e.target.style.display = 'none'
     e.target.src = "https://placehold.co/400?text=.png"
@@ -55,7 +55,7 @@ const TimeSeriesCard = ({ timeSeries }: Props) => {
             </Box>
           </Box>
           <Box height='100' width='100%' border='2px dotted' borderColor={colors.blueAccent[400]}>
-
+            <TimeSeriesChart />
           </Box>
         </Box>
       </CardContent>
