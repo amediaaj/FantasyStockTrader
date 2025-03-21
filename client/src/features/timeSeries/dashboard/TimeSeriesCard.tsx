@@ -55,7 +55,7 @@ const TimeSeriesCard = ({ timeSeries }: Props) => {
             </Box>
           </Box>
           <Box height='100' width='100%' border='2px dotted' borderColor={colors.blueAccent[400]}>
-            <TimeSeriesChart />
+            <TimeSeriesChart timeseriesDaily={timeSeries["Time Series (Daily)"]} />
           </Box>
         </Box>
       </CardContent>
