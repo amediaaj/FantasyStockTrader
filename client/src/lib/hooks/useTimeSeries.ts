@@ -2,6 +2,7 @@ import axios from "axios";
 import { TimeSeries, UserTimeSeries } from "../types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import agent from "../api/agent";
+import { useLocation } from "react-router";
 
 const url = (timeSeriesDetail: UserTimeSeries) => {
   return import.meta.env.VITE_STOCKS_URL + 
@@ -11,6 +12,7 @@ const url = (timeSeriesDetail: UserTimeSeries) => {
 
 export const useTimeSeries = (id?: string) => {
   const queryClient = useQueryClient();
+  const location = useLocation()
 
   const {data: timeSeriesList, isPending} = useQuery({
       queryKey: ['timeSeriesList'],
@@ -32,7 +34,9 @@ export const useTimeSeries = (id?: string) => {
         } catch(error) {
           console.error('Promise rejected with error: ' + error);
         }  
-      }
+      },
+      enabled: !id && location.pathname === '/timeseries',
+      staleTime: 0,
     })
 
     const {data: timeSeries, isLoading: isLoadingTimeSeries} = useQuery({
