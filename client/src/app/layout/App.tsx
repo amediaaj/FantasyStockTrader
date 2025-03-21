@@ -1,11 +1,13 @@
 import { Box, Container, CssBaseline, ThemeProvider } from "@mui/material";
 import NavBar from "./NavBar";
-import { Outlet } from "react-router";
-import { ColorModeContext, useMode } from "../../theme";
+import { Outlet, useLocation } from "react-router";
+import { ColorModeContext, useMode } from "../../lib/themes/theme";
 import { Theme } from "@emotion/react";
+import HomePage from "../../features/home/HomePage";
 
 
 function App() {
+  const location = useLocation();
   const [theme, colorMode] = useMode();
   
   return (
@@ -13,10 +15,14 @@ function App() {
       <ThemeProvider theme={theme as Theme}>
         <Box sx={{minHeight:'100vh'}}>
           <CssBaseline />
-          <NavBar />
-          <Container maxWidth='xl' sx={{mt: 3}}>
-            <Outlet />
-          </Container>
+          {location.pathname === '/' ? <HomePage /> : (
+            <>
+              <NavBar />
+              <Container maxWidth='xl' sx={{mt: 3}}>
+                <Outlet />
+              </Container>
+            </>
+          )}
         </Box>
       </ThemeProvider>
     </ColorModeContext.Provider>

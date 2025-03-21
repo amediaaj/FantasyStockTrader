@@ -1,5 +1,7 @@
 import { Grid2 } from "@mui/material";
 import TimeSeriesList from "./TimeSeriesList";
+import TimeSeriesLeaderboard from "./TimeSeriesLeaderboard";
+import TimeSeriesChat from "./TimeSeriesChat";
 
 const TimeSeriesDashboard = () => {
     return (
@@ -8,7 +10,8 @@ const TimeSeriesDashboard = () => {
                 <TimeSeriesList />
             </Grid2>
             <Grid2 size={5}>
-                Timeseries filters go here
+                <TimeSeriesLeaderboard />
+                <TimeSeriesChat />
             </Grid2>
         </Grid2>
     );

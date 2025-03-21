@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { createChart, ColorType, AreaSeries } from 'lightweight-charts';
 import { useTheme } from '@mui/material';
-import { tokens } from '../../../theme';
+import { tokens } from '../../../lib/themes/theme';
 import TimeSeriesData from './TimeSeriesData';
 
 const TimeSeriesChart = () => {
