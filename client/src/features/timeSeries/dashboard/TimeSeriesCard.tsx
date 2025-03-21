@@ -3,7 +3,7 @@ import { TimeSeries } from "../../../lib/types";
 import { Link } from "react-router";
 import { BaseSyntheticEvent } from "react";
 import { AccessTime, Place } from "@mui/icons-material";
-import { tokens } from "../../../theme";
+import { tokens } from "../../../lib/themes/theme";
 import TimeSeriesChart from "../chart/TimeSeriesChart";
 
 type Props = {

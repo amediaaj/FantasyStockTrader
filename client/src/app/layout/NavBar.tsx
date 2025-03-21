@@ -5,7 +5,7 @@ import { Box, AppBar, Toolbar, Typography,
     IconButton} from "@mui/material";
 import { NavLink } from "react-router";
 import MenuItemLink from "../shared/components/MenuItemLink";
-import { ColorModeContext, tokens } from "../../theme";
+import { ColorModeContext, tokens } from "../../lib/themes/theme";
 import { useContext } from "react";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined"
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined"

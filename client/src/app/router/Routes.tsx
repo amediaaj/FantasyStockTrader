@@ -3,7 +3,7 @@ import App from "../layout/App";
 import HomePage from "../../features/home/HomePage";
 import TimeSeriesDashboard from "../../features/timeSeries/dashboard/TimeSeriesDashboard";
 import TickerSearch from "../../features/form/TickerSearch";
-import TimeSeriesDetail from "../../features/timeSeries/details/TimeSeriesDetail";
+import TimeSeriesDetailPage from "../../features/timeSeries/details/TimeSeriesDetailPage";
 
 export const router = createBrowserRouter([
     {
@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
         children: [
             {path: '', element: <HomePage />},
             {path: 'timeseries', element: <TimeSeriesDashboard />},
-            {path: 'timeseries/:id', element: <TimeSeriesDetail />},
+            {path: 'timeseries/:id', element: <TimeSeriesDetailPage />},
             {path: 'trade', element: <TickerSearch key='create'/>},
             {path: 'trade/:id', element: <TickerSearch />}
         ]
