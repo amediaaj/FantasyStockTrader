@@ -64,7 +64,7 @@ const TimeSeriesCard = ({ timeSeries }: Props) => {
           <Box display={'flex'} gap={3}>
             <Button 
               component={Link}
-              to={`/timeSeries/${timeSeries.id}`}
+              to={`/timeseries/${timeSeries.id}`}
               size='medium'
               variant="contained"
               color='inherit'
