@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
 export class UiStore {
+    ticker: string | undefined = undefined;
     isLoading = false;
 
     constructor() {
@@ -13,5 +14,9 @@ export class UiStore {
 
     isIdle() {
         this.isLoading = false;
+    }
+
+    setTicker(newTicker: string | undefined) {
+        this.ticker = newTicker;
     }
 }

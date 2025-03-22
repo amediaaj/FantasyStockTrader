@@ -15,8 +15,6 @@ const TimeSeriesChart = ({timeseriesDaily}: Props) => {
 
     useEffect(() => {
         if (!chartContainerRef.current) return;
-        const logo = document.getElementById('tv-attr-logo');
-        if (logo) logo.remove();
     
         const chart = createChart(chartContainerRef.current, {
             layout: {
@@ -26,6 +24,9 @@ const TimeSeriesChart = ({timeseriesDaily}: Props) => {
             width: chartContainerRef.current.clientWidth,
             height: chartContainerRef.current.clientHeight,
         });
+
+        const logo = document.getElementById('tv-attr-logo');
+        if (logo) logo.remove();
 
         const candlestickSeries = chart.addSeries(CandlestickSeries, {
             upColor: '#26a69a', downColor: '#ef5350', borderVisible: false,

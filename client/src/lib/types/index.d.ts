@@ -19,13 +19,13 @@ interface TimeSeriesDaily {
 }
 
 interface TimeSeries {
-  id?: string;
+  id: string;
   "Meta Data": MetaData;
   "Time Series (Daily)": TimeSeriesDaily;
 }
 
 interface UserTimeSeries {
-  id?: string,
+  id: string,
   userId: string,
   tickerSymbol: string,
   function: string

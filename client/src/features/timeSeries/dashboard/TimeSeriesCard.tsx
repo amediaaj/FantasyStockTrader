@@ -1,24 +1,27 @@
 import { Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, Typography, useTheme } from "@mui/material";
-import { TimeSeries } from "../../../lib/types";
 import { Link } from "react-router";
 import { BaseSyntheticEvent } from "react";
 import { AccessTime, Place } from "@mui/icons-material";
 import { tokens } from "../../../lib/themes/theme";
 import TimeSeriesChart from "../chart/TimeSeriesChart";
+import { useTimeSeries } from "../../../lib/hooks/useTimeSeries";
 
 type Props = {
-    timeSeries: TimeSeries
+    ticker: string
 }
 
-const TimeSeriesCard = ({ timeSeries }: Props) => {
+const TimeSeriesCard = ({ ticker }: Props) => {
+  const {timeSeries, isPending} = useTimeSeries(ticker);
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode)
+  const colors = tokens(theme.palette.mode) 
 
   const handleImageError = (e: BaseSyntheticEvent) => {
     e.target.onerror = null;
     // e.target.style.display = 'none'
     e.target.src = "https://placehold.co/400?text=.png"
-}
+  }
+
+  if(!timeSeries || isPending) return <></>
 
   return (
     <Card elevation={3} sx={{borderRadius: 3}}>
@@ -64,12 +67,12 @@ const TimeSeriesCard = ({ timeSeries }: Props) => {
           <Box display={'flex'} gap={3}>
             <Button 
               component={Link}
-              to={`/timeseries/${timeSeries.id}`}
+              to={`/trade/${timeSeries["Meta Data"]["2. Symbol"]}`}
               size='medium'
               variant="contained"
               color='inherit'
             >
-              View
+              Trade
             </Button>
           </Box>
       </CardActions>
