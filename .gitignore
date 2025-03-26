@@ -488,3 +488,4 @@ API/stocktracker.db-shm
 API/stocktracker.db-wal
 client/src/lib/keys/keychain.ts
 client/.env.development
+client/.env.production

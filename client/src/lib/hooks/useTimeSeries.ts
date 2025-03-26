@@ -14,7 +14,7 @@ export const useTimeSeries = (ticker?: string) => {
         `${import.meta.env.VITE_STOCKS_URL}function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${import.meta.env.VITE_API_KEY}`
       );
       if (!timeSeriesResponse.data) throw new Error("No data returned");
-      uiStore.setTicker(timeSeries?.["Meta Data"]["2. Symbol"]);
+      uiStore.setTicker(timeSeriesResponse.data["Meta Data"]["2. Symbol"]);
       return timeSeriesResponse.data;
     },
     enabled: !!ticker, // Ensures query runs only when ticker is defined
