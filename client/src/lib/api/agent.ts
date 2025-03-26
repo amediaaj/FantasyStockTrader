@@ -19,7 +19,6 @@ agent.interceptors.request.use(config => {
 agent.interceptors.response.use(async response => {
     try {
         await sleep(500);
-        store.uiStore.isIdle();
         return response;
     } catch (error) {
         console.log(error);

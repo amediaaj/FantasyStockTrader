@@ -2,6 +2,9 @@ using Application.Core;
 using Application.TimeSeries.Queries;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using FluentValidation;
+using Application.TimeSeries.Validators;
+using API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +15,13 @@ builder.Services.AddDbContext<AppDbContext>(opt => {
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddCors();
-builder.Services.AddMediatR(x => 
-    x.RegisterServicesFromAssemblyContaining<GetUserTimeSeriesList.Handler>());
+builder.Services.AddMediatR(x => {
+    x.RegisterServicesFromAssemblyContaining<GetUserTimeSeriesList.Handler>();
+    x.AddOpenBehavior(typeof(ValidationBehavior<,>));
+});
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+builder.Services.AddValidatorsFromAssemblyContaining<CreateUserTimeSeriesValidator>();
+builder.Services.AddTransient<ExceptionMiddleware>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -23,6 +30,8 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

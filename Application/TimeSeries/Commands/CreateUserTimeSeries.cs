@@ -1,4 +1,7 @@
+using Application.TimeSeries.DTOs;
+using AutoMapper;
 using Domain;
+using FluentValidation;
 using MediatR;
 using Persistence;
 
@@ -8,16 +11,20 @@ public class CreateUserTimeSeries
 {
     public class Command : IRequest<string>
     {
-        public required UserTimeSeries UserTimeSeries { get; set; }
+        public required CreateUserTimeSeriesDto UserTimeSeriesDto { get; set; }
     }
 
-    public class Handler(AppDbContext context) : IRequestHandler<Command, string>
+    public class Handler(AppDbContext context, IMapper mapper) : IRequestHandler<Command, string>
     {
         public async Task<string> Handle(Command request, CancellationToken cancellationToken)
         {
-            context.UserTimeSeries.Add(request.UserTimeSeries);
+            var userTimeSeries = mapper.Map<UserTimeSeries>(request.UserTimeSeriesDto);
+
+            context.UserTimeSeries.Add(userTimeSeries);
+
             await context.SaveChangesAsync(cancellationToken);
-            return request.UserTimeSeries.Id;
+
+            return userTimeSeries.Id;
         }
     }
 }

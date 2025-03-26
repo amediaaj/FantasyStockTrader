@@ -1,4 +1,5 @@
 using Application.TimeSeries.Commands;
+using Application.TimeSeries.DTOs;
 using Application.TimeSeries.Queries;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +17,13 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserTimeSeries>> GetTimeSeriesDetail(string id)
         {
-            return await Mediator.Send(new GetUserTimeSeriesDetails.Query{Id = id});
+            return HandleResult(await Mediator.Send(new GetUserTimeSeriesDetails.Query{Id = id}));
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> CreateUserTimeSeries(UserTimeSeries userTimeSeries)
+        public async Task<ActionResult<string>> CreateUserTimeSeries(CreateUserTimeSeriesDto userTimeSeriesDto)
         {
-            return await Mediator.Send(new CreateUserTimeSeries.Command{UserTimeSeries = userTimeSeries});
+            return await Mediator.Send(new CreateUserTimeSeries.Command{UserTimeSeriesDto = userTimeSeriesDto});
         }
 
         [HttpPut]
