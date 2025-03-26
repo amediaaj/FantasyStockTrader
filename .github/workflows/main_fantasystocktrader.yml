@@ -20,7 +20,7 @@ jobs:
 
       - name: Set up node.js
         uses: actions/setup-node@v3
-        with: '22.x'
+        with: '22'
 
       - name: Install deps and build react app
         run:  |
