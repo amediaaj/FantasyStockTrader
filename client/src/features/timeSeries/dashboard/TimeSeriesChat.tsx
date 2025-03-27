@@ -1,4 +1,4 @@
-import { Box, Typography, Card, CardContent, TextField, Avatar } from "@mui/material";
+import { Box, Typography, Card, CardContent, TextField } from "@mui/material";
 import { Link } from "react-router";
 
 export default function TimeSeriesDetailsChat() {
@@ -30,7 +30,6 @@ export default function TimeSeriesDetailsChat() {
 
                     <Box>
                         <Box sx={{ display: 'flex', my: 2 }}>
-                            <Avatar src={'/images/user.png'} alt={'user image'} sx={{ mr: 2 }} />
                             <Box display='flex' flexDirection='column'>
                                 <Box display='flex' alignItems='center' gap={3}>
                                     <Typography component={Link} to={`/profiles/username`} variant="subtitle1" sx={{ fontWeight: 'bold', textDecoration: 'none' }}>

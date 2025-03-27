@@ -18,11 +18,11 @@ agent.interceptors.request.use(config => {
 
 agent.interceptors.response.use(async response => {
     try {
-        await sleep(500);
+        if (import.meta.env.DEV) await sleep(1000);
         store.uiStore.isIdle();
         return response;
     } catch (error) {
-        console.log(error);
+        if (import.meta.env.DEV) await sleep(1000);
         return Promise.reject(error);
     } finally {
         store.uiStore.isIdle();
