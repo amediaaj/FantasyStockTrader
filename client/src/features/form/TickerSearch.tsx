@@ -2,7 +2,6 @@ import { Box, TextField } from "@mui/material";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { BestMatch, TickerBestMatches } from "../../lib/types";
 import axios from "axios";
-import KeyChain from "../../lib/keys/keychain";
 import TickerSearchResults from "./TickerSearchResults";
 import { useStore } from "../../lib/hooks/useStore";
 import { useNavigate } from "react-router";
@@ -34,7 +33,7 @@ export default function TickerSearch() {
     const url = 'https://www.alphavantage.co/query?' + 
       `function=SYMBOL_SEARCH` +
       `&keywords=${keywords}`+
-      `&apikey=${new KeyChain().primary}`
+      `&apikey=${import.meta.env.VITE_API_KEY}`
 
     try {
       const tickerSearchResponse = 

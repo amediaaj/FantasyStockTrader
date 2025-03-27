@@ -12,7 +12,7 @@ export const useUserTimeSeries = (id?: string) => {
       queryFn: async () => {
         try {
           const userTimeSeriesResponse = 
-          await agent.get<UserTimeSeries[]>('/usertimeseries');
+            await agent.get<UserTimeSeries[]>('/usertimeseries');
           return userTimeSeriesResponse.data
         } catch(error) {
           console.error('Promise rejected with error: ' + error);
@@ -66,8 +66,7 @@ export const useUserTimeSeries = (id?: string) => {
 
   return {
     userTimeSeries, 
-    isPending,
-    
+    isPending, 
     updateUserTimeSeries,
     createUserTimeSeries,
     deleteUserTimeSeries,
