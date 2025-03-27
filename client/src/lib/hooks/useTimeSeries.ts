@@ -11,7 +11,7 @@ export const useTimeSeries = (ticker?: string) => {
     queryFn: async () => {
       if (!ticker) return; // Prevents the API call
       const timeSeriesResponse = await agent.get<TimeSeries>(
-        `${import.meta.env.VITE_STOCKS_URL}function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${import.meta.env.VITE_API_KEY}`
+        `${process.env.STOCKS_URL || import.meta.env.VITE_STOCKS_URL}function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=${process.env.VITE_API_KEY}`
       );
       if (!timeSeriesResponse.data) throw new Error("No data returned");
       uiStore.setTicker(timeSeriesResponse.data["Meta Data"]["2. Symbol"]);
