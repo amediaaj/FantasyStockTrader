@@ -487,3 +487,4 @@ API/appsettings.json
 API/stocktracker.db
 API/stocktracker.db-shm
 API/stocktracker.db-wal
+API/wwwroot/
