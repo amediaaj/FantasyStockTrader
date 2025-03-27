@@ -1,14 +1,12 @@
 using System;
 using Application.TimeSeries.Commands;
+using Application.TimeSeries.DTOs;
 using FluentValidation;
 
 namespace Application.TimeSeries.Validators;
 
-public class CreateUserTimeSeriesValidator : AbstractValidator<CreateUserTimeSeries.Command>
+public class CreateUserTimeSeriesValidator 
+   : BaseUserTimeSeriesValidator<CreateUserTimeSeries.Command, CreateUserTimeSeriesDto>
 {
-     public CreateUserTimeSeriesValidator()
-     {
-        RuleFor(x => x.UserTimeSeriesDto.UserId).NotEmpty().WithMessage("User Id is required");
-        RuleFor(x => x.UserTimeSeriesDto.TickerSymbol).NotEmpty().WithMessage("Ticker Symbol is required");
-     }
+     public CreateUserTimeSeriesValidator() : base(x => x.UserTimeSeriesDto) {}
 }

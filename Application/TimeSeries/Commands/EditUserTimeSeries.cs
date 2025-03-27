@@ -1,3 +1,5 @@
+using Application.Core;
+using Application.TimeSeries.DTOs;
 using AutoMapper;
 using Domain;
 using MediatR;
@@ -7,22 +9,26 @@ namespace Application.TimeSeries.Commands;
 
 public class EditUserTimeSeries
 {
-    public class Command : IRequest
+    public class Command : IRequest<Result<Unit>>
     {
-        public required UserTimeSeries UserTimeSeries { get; set; }
+        public required EditUserTimeSeriesDto UserTimeSeriesDto { get; set; }
     }
 
-    public class Handler(AppDbContext context, IMapper mapper) : IRequestHandler<Command>
+    public class Handler(AppDbContext context, IMapper mapper) : IRequestHandler<Command, Result<Unit>>
     {
-        public async Task Handle(Command request, CancellationToken cancellationToken)
+        public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var userTimeSeries = await context.UserTimeSeries.FindAsync([request.UserTimeSeries.Id], cancellationToken) 
-                ?? throw new Exception("Resource not found");
+            var userTimeSeries = await context.UserTimeSeries.FindAsync([request.UserTimeSeriesDto.Id], cancellationToken);
 
-            mapper.Map(request.UserTimeSeries, userTimeSeries);
-            
-            userTimeSeries.TickerSymbol = request.UserTimeSeries.TickerSymbol;
-            await context.SaveChangesAsync(cancellationToken);
+            if(userTimeSeries is null) return Result<Unit>.Failure("User time series not found", 404);
+
+            mapper.Map(request.UserTimeSeriesDto, userTimeSeries);
+
+            var result = await context.SaveChangesAsync(cancellationToken) > 0;
+
+            if (!result) return Result<Unit>.Failure("Failed to update the user time series", 404);
+
+            return Result<Unit>.Success(Unit.Value); 
         }
     }
 }

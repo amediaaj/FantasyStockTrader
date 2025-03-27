@@ -1,3 +1,4 @@
+using Application.Core;
 using Application.TimeSeries.DTOs;
 using AutoMapper;
 using Domain;
@@ -9,22 +10,24 @@ namespace Application.TimeSeries.Commands;
 
 public class CreateUserTimeSeries
 {
-    public class Command : IRequest<string>
+    public class Command : IRequest<Result<string>>
     {
         public required CreateUserTimeSeriesDto UserTimeSeriesDto { get; set; }
     }
 
-    public class Handler(AppDbContext context, IMapper mapper) : IRequestHandler<Command, string>
+    public class Handler(AppDbContext context, IMapper mapper) : IRequestHandler<Command, Result<string>>
     {
-        public async Task<string> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(Command request, CancellationToken cancellationToken)
         {
             var userTimeSeries = mapper.Map<UserTimeSeries>(request.UserTimeSeriesDto);
 
             context.UserTimeSeries.Add(userTimeSeries);
 
-            await context.SaveChangesAsync(cancellationToken);
+            var result = await context.SaveChangesAsync(cancellationToken) > 0;
 
-            return userTimeSeries.Id;
+            if (!result) return Result<string>.Failure("Failed to create the user time series", 404);
+
+            return Result<string>.Success(userTimeSeries.Id); 
         }
     }
 }
