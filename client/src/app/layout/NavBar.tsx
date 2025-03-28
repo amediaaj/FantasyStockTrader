@@ -1,4 +1,3 @@
-import { Group } from "@mui/icons-material";
 import { Box, AppBar, Toolbar, Typography, 
     Container, MenuItem, 
     useTheme,
@@ -37,7 +36,6 @@ const NavBar = () => {
                         <MenuItem 
                             component={NavLink} to='/' 
                             sx={{display: 'flex', gap:2}}>
-                            <Group fontSize='large'/>
                             <Typography 
                                 variant="h4" 
                                 fontWeight={'bold'}
@@ -53,13 +51,17 @@ const NavBar = () => {
                         <MenuItemLink to='/trade'>
                             Trade Stocks
                         </MenuItemLink>
-                        <Box display='none'>
-                            <MenuItemLink to='/counter'>
-                                Counter
-                            </MenuItemLink>
-                        </Box>
+                        {import.meta.env.DEV &&   
+                            <Box sx={{display: 'flex', border:'red 2px dotted'}}>
+                                <MenuItemLink to='/counter'>
+                                    Ctr
+                                </MenuItemLink>
+                                <MenuItemLink to='/errors'>
+                                    Err
+                                </MenuItemLink>
+                            </Box>
+                        }
                     </Box>
-                    {/* icons */}
                     <Box display='flex'>
                         <IconButton onClick={colorMode.toggleColorMode}>
                             {theme.palette.mode === 'dark' ? (

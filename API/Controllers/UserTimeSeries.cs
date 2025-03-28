@@ -1,4 +1,5 @@
 using Application.TimeSeries.Commands;
+using Application.TimeSeries.DTOs;
 using Application.TimeSeries.Queries;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -16,29 +17,25 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserTimeSeries>> GetTimeSeriesDetail(string id)
         {
-            return await Mediator.Send(new GetUserTimeSeriesDetails.Query{Id = id});
+            return HandleResult(await Mediator.Send(new GetUserTimeSeriesDetails.Query{Id = id}));
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> CreateUserTimeSeries(UserTimeSeries userTimeSeries)
+        public async Task<ActionResult<string>> CreateUserTimeSeries(CreateUserTimeSeriesDto userTimeSeriesDto)
         {
-            return await Mediator.Send(new CreateUserTimeSeries.Command{UserTimeSeries = userTimeSeries});
+            return HandleResult(await Mediator.Send(new CreateUserTimeSeries.Command{UserTimeSeriesDto = userTimeSeriesDto}));
         }
 
         [HttpPut]
-        public async Task<ActionResult> EditUserTimeSeries(UserTimeSeries userTimeSeries)
+        public async Task<ActionResult> EditUserTimeSeries(EditUserTimeSeriesDto userTimeSeriesDto)
         {
-            await Mediator.Send(new EditUserTimeSeries.Command{UserTimeSeries = userTimeSeries});
-
-            return NoContent();
+            return HandleResult(await Mediator.Send(new EditUserTimeSeries.Command{UserTimeSeriesDto = userTimeSeriesDto}));
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteUserTimeSeries(string id)
         {
-            await Mediator.Send(new DeleteUserTimeSeries.Command{Id = id});
-
-            return Ok();
+            return HandleResult(await Mediator.Send(new DeleteUserTimeSeries.Command{Id = id}));
         }
     }
 }

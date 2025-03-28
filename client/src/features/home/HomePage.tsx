@@ -1,4 +1,3 @@
-import { Group } from "@mui/icons-material";
 import { Box, Button, Paper, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router";
 import { tokens } from "../../lib/themes/theme";
@@ -29,7 +28,6 @@ export default function HomePage() {
           alignContent: 'center',
           gap: 3
         }}>
-          <Group sx={{height: 110, width: 110}}/>
           <Typography variant='h1'>
             FantasyStockTrader.com
           </Typography>

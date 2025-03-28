@@ -1,3 +1,4 @@
+using Application.TimeSeries.DTOs;
 using AutoMapper;
 using Domain;
 
@@ -8,5 +9,6 @@ public class MappingProfiles : Profile
     public MappingProfiles()
     {
         CreateMap<UserTimeSeries, UserTimeSeries>();
+        CreateMap<CreateUserTimeSeriesDto, UserTimeSeries>();
     }
 }
