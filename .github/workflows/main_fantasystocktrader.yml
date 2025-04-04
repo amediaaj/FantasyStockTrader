@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -29,6 +32,11 @@ jobs:
           npm install
           npm run build
 
+      - name: Run Vitest
+        run: |
+          cd client
+          npm run test
+  
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
@@ -37,15 +45,18 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+      - name: Run xUnit
+        run: dotnet test ./Test/Test.csproj --configuration Release --no-build --verbosity normal
 
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ./publish
+      
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
-
+          path: ./publish
+      
   deploy:
     runs-on: windows-latest
     needs: build
@@ -76,4 +87,4 @@ jobs:
           app-name: 'fantasystocktrader'
           slot-name: 'Production'
           package: .
-          
+        
