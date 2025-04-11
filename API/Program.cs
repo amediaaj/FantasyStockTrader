@@ -35,7 +35,16 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
             );
         });
 });
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials();
+    });
+});
+
 builder.Services.AddMediatR(x =>
 {
     x.RegisterServicesFromAssemblyContaining<GetUserTimeSeriesList.Handler>();
@@ -65,11 +74,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors(x =>
-{
-    x.AllowAnyHeader().AllowAnyMethod().WithOrigins(
-        "http://localhost:3000", "https://localhost:3000");
-});
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
