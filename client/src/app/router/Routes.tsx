@@ -8,7 +8,6 @@ import TestErrors from '../../features/errors/TestErrors';
 import NotFound from '../../features/errors/NotFound';
 import ServerError from '../../features/errors/ServerError';
 import LoginForm from '../../features/LoginForm';
-import Test from '../../features/Test';
 
 export const router = createBrowserRouter([
   {
