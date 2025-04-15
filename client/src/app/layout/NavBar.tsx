@@ -58,7 +58,7 @@ const NavBar = () => {
               ) : (
                 <>
                   <MenuItemLink to="/login">Login</MenuItemLink>
-                  <MenuItemLink to="/regitst">Register</MenuItemLink>
+                  <MenuItemLink to="/register">Register</MenuItemLink>
                 </>
               )}
             </Box>

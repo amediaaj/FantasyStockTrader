@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { useAccount } from '../lib/hooks/useAccount';
-import { loginSchema, LoginSchema } from '../lib/schemas/loginSchema';
+import { useAccount } from '../../lib/hooks/useAccount';
+import { loginSchema, LoginSchema } from '../../lib/schemas/loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Paper, Typography } from '@mui/material';
 import { LockOpen } from '@mui/icons-material';
-import TextInput from '../app/shared/components/TextInput';
-import { useLocation, useNavigate } from 'react-router';
+import TextInput from '../../app/shared/components/TextInput';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 export default function LoginForm() {
   const { loginUser } = useAccount();
@@ -71,6 +71,17 @@ export default function LoginForm() {
       >
         Login
       </Button>
+      <Typography sx={{ textAlign: 'cent' }}>
+        Don't have an account?
+        <Typography
+          sx={{ ml: 2 }}
+          component={Link}
+          to="/register"
+          color="secondary"
+        >
+          Sign up
+        </Typography>
+      </Typography>
     </Paper>
   );
 }

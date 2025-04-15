@@ -21,7 +21,7 @@ export const useUserTimeSeries = (id?: string) => {
         console.error('Promise rejected with error: ' + error);
       }
     },
-    enabled: !!currentUser,
+    enabled: location.pathname === '/timeseries' && !!currentUser,
   });
 
   const { data: timeSeries, isLoading: isLoadingTimeSeries } = useQuery({
@@ -30,7 +30,7 @@ export const useUserTimeSeries = (id?: string) => {
       const response = await agent.get<UserTimeSeries>(`/usertimeseries/${id}`);
       return response.data;
     },
-    enabled: !!id && location.pathname === 'timeseries' && !!currentUser,
+    enabled: !!id && location.pathname === '/timeseries' && !!currentUser,
   });
 
   const updateUserTimeSeries = useMutation({
