@@ -17,7 +17,6 @@ export const useAccount = () => {
       await queryClient.invalidateQueries({
         queryKey: ['user'],
       });
-      await navigate('/timeseries');
     },
   });
 
@@ -36,7 +35,7 @@ export const useAccount = () => {
   });
 
   // Called by onSuccess when logging in. See above.
-  const { data: currentUser } = useQuery({
+  const { data: currentUser, isLoading: loadingUserInfo } = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
       const response = await agent.get<User>('account/user-info');
@@ -49,5 +48,6 @@ export const useAccount = () => {
     loginUser,
     currentUser,
     logoutUser,
+    loadingUserInfo,
   };
 };

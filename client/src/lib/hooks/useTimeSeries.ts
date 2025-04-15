@@ -2,9 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import agent from '../api/agent';
 import { TimeSeries } from '../types';
 import { useStore } from './useStore';
+import { useAccount } from './useAccount';
 
 export const useTimeSeries = (ticker?: string) => {
   const { uiStore } = useStore();
+  const { currentUser } = useAccount();
 
   const { data: timeSeries, isPending } = useQuery({
     queryKey: ['timeSeries', ticker],
@@ -22,7 +24,7 @@ export const useTimeSeries = (ticker?: string) => {
       uiStore.setTicker(timeSeriesResponse.data['Meta Data']['2. Symbol']);
       return timeSeriesResponse.data;
     },
-    enabled: !!ticker, // Ensures query runs only when ticker is defined
+    enabled: !!ticker && !!currentUser,
   });
 
   return { timeSeries, isPending };

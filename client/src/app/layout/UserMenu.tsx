@@ -13,7 +13,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { Link } from 'react-router';
-import { Add, Logout, Person } from '@mui/icons-material';
+import { Logout, Person, ShowChart } from '@mui/icons-material';
 import { ColorModeContext } from '../../lib/themes/theme';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
@@ -57,7 +57,7 @@ export default function UserMenu() {
       >
         <MenuItem component={Link} to="trade" onClick={handleClose}>
           <ListItemIcon>
-            <Add />
+            <ShowChart />
           </ListItemIcon>
           <ListItemText>Trade Stocks</ListItemText>
         </MenuItem>
