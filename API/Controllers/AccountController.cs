@@ -3,12 +3,21 @@ using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
 
 namespace API.Controllers;
 
-public class AccountController(SignInManager<User> signInManager) : BaseApiController
+public class AccountController : BaseApiController
 {
+    private readonly UserManager<User> _userManager;
+    private readonly SignInManager<User> _signInManager;
+
+    // Constructor accepting both managers
+    public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+    {
+        _userManager = userManager;
+        _signInManager = signInManager;
+    }
+
     [AllowAnonymous]
     [HttpPost("register")]
     public async Task<ActionResult> RegisterUser(RegisterDto registerDto)
@@ -20,14 +29,13 @@ public class AccountController(SignInManager<User> signInManager) : BaseApiContr
             DisplayName = registerDto.DisplayName
         };
 
-        var result = await signInManager.UserManager.CreateAsync(user, registerDto.Password);
+        var result = await _userManager.CreateAsync(user, registerDto.Password);
 
         if (result.Succeeded) return Ok();
 
         foreach (var error in result.Errors)
         {
             ModelState.AddModelError(error.Code, error.Description);
-
         }
 
         return ValidationProblem();
@@ -38,7 +46,7 @@ public class AccountController(SignInManager<User> signInManager) : BaseApiContr
     public async Task<ActionResult> GetUserInfo()
     {
         if (User.Identity?.IsAuthenticated == false) return NoContent();
-        var user = await signInManager.UserManager.GetUserAsync(User);
+        var user = await _userManager.GetUserAsync(User);
 
         if (user == null) return Unauthorized();
 
@@ -53,8 +61,7 @@ public class AccountController(SignInManager<User> signInManager) : BaseApiContr
     [HttpPost("logout")]
     public async Task<ActionResult> Logout()
     {
-        await signInManager.SignOutAsync();
-
+        await _signInManager.SignOutAsync();
         return NoContent();
     }
 }
